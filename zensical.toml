@@ -5,7 +5,7 @@ site_name = "Hyperswitch"
 site_url = "https://hyperswitch.io/docs"
 site_description = "Hyperswitch - Open Source Payment Orchestration Platform API Documentation"
 docs_dir = "docs"
-site_dir = "site"
+site_dir = "."
 extra_css = ["stylesheets/extra.css"]
 extra_javascripts = ["javascripts/api-playground.js"]
 
