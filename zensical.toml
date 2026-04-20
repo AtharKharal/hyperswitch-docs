@@ -1,0 +1,142 @@
+# Zensical Configuration
+
+[project]
+site_name = "Hyperswitch"
+site_url = "https://hyperswitch.io/docs"
+site_description = "Hyperswitch - Open Source Payment Orchestration Platform API Documentation"
+docs_dir = "docs"
+site_dir = "site"
+extra_css = ["stylesheets/extra.css"]
+extra_javascripts = ["javascripts/api-playground.js"]
+
+[project.theme]
+variant = "modern"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "deep_purple"
+accent = "cyan"
+toggle = { icon = "material/weather-night", name = "Switch to light mode" }
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "deep_purple"
+accent = "cyan"
+toggle = { icon = "material/weather-sunny", name = "Switch to dark mode" }
+
+[project.extra]
+generator = "Zensical"
+
+[[navigation.sections]]
+title = "Tutorials"
+weight = 10
+[[navigation.sections.links]]
+label = "Onboarding Path"
+href = "tutorials/onboarding"
+[[navigation.sections.links]]
+label = "Quick Start"
+href = "tutorials/quickstart"
+[[navigation.sections.links]]
+label = "Connectors"
+href = "tutorials/connectors"
+[[navigation.sections.links]]
+label = "Customers"
+href = "tutorials/customers"
+[[navigation.sections.links]]
+label = "Process Refunds"
+href = "tutorials/process-refunds"
+[[navigation.sections.links]]
+label = "Smart Routing"
+href = "tutorials/routing"
+[[navigation.sections.links]]
+label = "3D Secure"
+href = "tutorials/three-d-secure"
+[[navigation.sections.links]]
+label = "Webhooks"
+href = "tutorials/webhooks"
+[[navigation.sections.links]]
+label = "Introduction"
+href = "index"
+
+[[navigation.sections]]
+title = "How-To Guides"
+weight = 20
+[[navigation.sections.links]]
+label = "Accept Payment"
+href = "howto/accept-payment"
+[[navigation.sections.links]]
+label = "Manage Customers"
+href = "howto/manage-customers"
+[[navigation.sections.links]]
+label = "Process Refund"
+href = "howto/process-refund"
+[[navigation.sections.links]]
+label = "Handle Webhooks"
+href = "howto/handle-webhooks"
+[[navigation.sections.links]]
+label = "Set Up Routing"
+href = "howto/setup-routing"
+
+[[navigation.sections]]
+title = "Explanation"
+weight = 30
+[[navigation.sections.links]]
+label = "Architecture"
+href = "explanation/architecture"
+[[navigation.sections.links]]
+label = "Payment Flows"
+href = "explanation/payment-flows"
+[[navigation.sections.links]]
+label = "Authentication"
+href = "explanation/authentication"
+
+[[navigation.sections]]
+title = "Developer Tools"
+weight = 40
+[[navigation.sections.links]]
+label = "LSP & MCP Integration"
+href = "developer-tools"
+[[navigation.sections.links]]
+label = "IDE Extension"
+href = "vscode-extension"
+
+[[navigation.sections]]
+title = "API Reference"
+weight = 50
+[[navigation.sections.links]]
+label = "Overview"
+href = "api-reference/index"
+[[navigation.sections.links]]
+label = "Payments"
+href = "api-reference/payments/index"
+[[navigation.sections.links]]
+label = "Refunds"
+href = "api-reference/refunds/index"
+[[navigation.sections.links]]
+label = "Customers"
+href = "api-reference/customers/index"
+[[navigation.sections.links]]
+label = "Payment Methods"
+href = "api-reference/payment-methods/index"
+[[navigation.sections.links]]
+label = "Routing"
+href = "api-reference/routing/index"
+[[navigation.sections.links]]
+label = "Payouts"
+href = "api-reference/payouts/index"
+[[navigation.sections.links]]
+label = "Disputes"
+href = "api-reference/disputes/index"
+[[navigation.sections.links]]
+label = "Subscriptions"
+href = "api-reference/subscriptions/index"
+[[navigation.sections.links]]
+label = "Events & Webhooks"
+href = "api-reference/event/index"
+[[navigation.sections.links]]
+label = "Authentication"
+href = "api-reference/authentication/index"
+[[navigation.sections.links]]
+label = "Merchant Account"
+href = "api-reference/merchant-account/index"

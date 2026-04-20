@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HyperSwitch SDK Schema",
+  "description": "JSON schema for HyperSwitch payment SDK with hover documentation",
+  "type": "object",
+  "properties": {
+    "api-key": {
+      "type": "string",
+      "description": "Your HyperSwitch API key. Get from [Dashboard](https://app.hyperswitch.io)",
+      "pattern": "^sk_(test|live)_[a-zA-Z0-9]+$",
+      "examples": ["sk_test_your_key", "sk_live_your_key"]
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Payment amount in smallest currency unit (cents). Example: 6540 = $65.40 USD",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code",
+      "enum": ["USD", "EUR", "GBP", "INR", "JPY", "AUD", "CAD", "CHF", "CNY", "SEK", "NZD", "SGD", "HKD", "NOK", "KRW", "BRL", "MXN", "ZAR", "AED", "SAR"]
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Unique customer identifier (cus_xxx) for saved customer profiles"
+    },
+    "payment_id": {
+      "type": "string",
+      "description": "Unique payment identifier (pay_xxx) for tracking transactions",
+      "pattern": "^pay_[a-zA-Z0-9]+$"
+    },
+    "customer": {
+      "type": "object",
+      "description": "Customer details for the payment",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Customer email address"
+        },
+        "name": {
+          "type": "string",
+          "description": "Customer full name"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Customer phone number with country code"
+        }
+      }
+    },
+    "return_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to redirect after payment completion"
+    },
+    "payment_method": {
+      "type": "object",
+      "description": "Payment method configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["card", "bank_debit", "wallet", "bank_redirect", "bank_transfer"],
+          "description": "Type of payment method"
+        },
+        "card": {
+          "type": "object",
+          "description": "Card payment details",
+          "properties": {
+            "card_number": {
+              "type": "string",
+              "description": "Card number (will be tokenized)"
+            },
+            "exp_month": {
+              "type": "string",
+              "description": "Expiry month (MM)"
+            },
+            "exp_year": {
+              "type": "string",
+              "description": "Expiry year (YYYY)"
+            },
+            "cvc": {
+              "type": "string",
+              "description": "Card verification code"
+            }
+          }
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "description": "Smart routing configuration",
+      "properties": {
+        "algorithm_type": {
+          "type": "string",
+          "enum": ["single", "priority", "fallback", "split"],
+          "description": "Routing algorithm type"
+        },
+        "priority": {
+          "type": "array",
+          "description": "Ordered list of connectors",
+          "items": {
+            "type": "string",
+            "enum": ["stripe", "adyen", "paypal", "braintree", "authorize"]
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Custom key-value pairs for merchant data (max 50 keys, 40 chars key, 500 chars value)"
+    },
+    "capture_method": {
+      "type": "string",
+      "enum": ["automatic", "manual"],
+      "default": "automatic",
+      "description": "When to capture payment: automatic (immediate) or manual (later)"
+    },
+    "authentication": {
+      "type": "object",
+      "description": "3D Secure authentication config",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["3ds", "3ds2", "no_three_ds"],
+          "description": "3DS version to use"
+        },
+        "3ds": {
+          "type": "object",
+          "properties": {
+            "device_channel": {
+              "type": "string",
+              "enum": ["browser", "app"],
+              "description": "Device channel for 3DS"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["amount", "currency"],
+  "components": {
+    "examples": {
+      "create_payment": {
+        "amount": 6540,
+        "currency": "USD",
+        "customer": {
+          "email": "customer@example.com",
+          "name": "John Doe"
+        },
+        "return_url": "https://your-site.com/payment-complete"
+      },
+      "create_customer": {
+        "email": "customer@example.com",
+        "name": "John Doe",
+        "phone": "+1234567890"
+      },
+      "process_refund": {
+        "payment_id": "pay_abc123",
+        "amount": 3270,
+        "reason": "requested_by_customer"
+      }
+    }
+  }
+}

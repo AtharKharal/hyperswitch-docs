@@ -1,0 +1,254 @@
+{
+  "name": "hyperswitch-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for HyperSwitch documentation",
+  "protocol": "mcp",
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true
+  },
+  "tools": [
+    {
+      "name": "create_payment",
+      "description": "Create a new payment intent in HyperSwitch. Use this to initiate any payment transaction.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "description": "Amount in smallest currency unit (e.g., 6540 = $65.40)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Three-letter ISO currency code (USD, EUR, GBP, etc.)"
+          },
+          "customer_id": {
+            "type": "string",
+            "description": "Optional: Existing customer ID (cus_xxx) for returning customers"
+          },
+          "customer_email": {
+            "type": "string",
+            "description": "Customer email address"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "Customer full name"
+          },
+          "return_url": {
+            "type": "string",
+            "description": "URL to redirect after payment completion"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Custom key-value pairs"
+          }
+        },
+        "required": ["amount", "currency"]
+      }
+    },
+    {
+      "name": "get_customer",
+      "description": "Retrieve customer details by customer ID",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "description": "The customer ID (format: cus_xxx)"
+          }
+        },
+        "required": ["customer_id"]
+      }
+    },
+    {
+      "name": "create_customer",
+      "description": "Create a new customer profile in HyperSwitch for saved payment methods and recurring payments",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Customer email address"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer full name"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number with country code"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Custom attributes for segmentation"
+          }
+        },
+        "required": ["email"]
+      }
+    },
+    {
+      "name": "process_refund",
+      "description": "Process a refund for an existing payment. Supports full and partial refunds.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payment_id": {
+            "type": "string",
+            "description": "The payment ID to refund (format: pay_xxx)"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Amount to refund in smallest unit. Omit for full refund."
+          },
+          "reason": {
+            "type": "string",
+            "enum": ["requested_by_customer", "duplicate", "fraudulent"],
+            "description": "Reason for the refund"
+          }
+        },
+        "required": ["payment_id", "reason"]
+      }
+    },
+    {
+      "name": "get_payment_status",
+      "description": "Check the status of an existing payment",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payment_id": {
+            "type": "string",
+            "description": "The payment ID to check (format: pay_xxx)"
+          }
+        },
+        "required": ["payment_id"]
+      }
+    },
+    {
+      "name": "configure_routing",
+      "description": "Set up smart payment routing to optimize for success rate or cost",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "algorithm_type": {
+            "type": "string",
+            "enum": ["single", "priority", "fallback", "split"],
+            "description": "Routing strategy"
+          },
+          "connectors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Ordered list of connectors (stripe, adyen, paypal, etc.)"
+          },
+          "profile_name": {
+            "type": "string",
+            "description": "Name for this routing profile"
+          }
+        },
+        "required": ["algorithm_type", "connectors"]
+      }
+    },
+    {
+      "name": "verify_webhook",
+      "description": "Verify webhook signature for incoming webhook events",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payload": {
+            "type": "string",
+            "description": "Raw webhook payload"
+          },
+          "signature": {
+            "type": "string",
+            "description": "x-hyperswitch-signature header value"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Your webhook secret (whsec_xxx)"
+          }
+        },
+        "required": ["payload", "signature", "secret"]
+      }
+    },
+    {
+      "name": "list_customers",
+      "description": "List all customers with optional filtering",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "default": 10,
+            "description": "Maximum number of results"
+          },
+          "offset": {
+            "type": "integer",
+            "default": 0,
+            "description": "Pagination offset"
+          },
+          "email": {
+            "type": "string",
+            "description": "Filter by email"
+          }
+        }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "docs://tutorials/quickstart",
+      "name": "Quick Start Guide",
+      "description": "Getting started with HyperSwitch payments"
+    },
+    {
+      "uri": "docs://api-reference/payments",
+      "name": "Payments API Reference",
+      "description": "Complete payment endpoint documentation"
+    },
+    {
+      "uri": "docs://api-reference/customers",
+      "name": "Customers API Reference",
+      "description": "Customer management endpoints"
+    },
+    {
+      "uri": "docs://api-reference/refunds",
+      "name": "Refunds API Reference",
+      "description": "Refund operation endpoints"
+    },
+    {
+      "uri": "docs://explanation/authentication",
+      "name": "Authentication Guide",
+      "description": "API key and authentication details"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "payment-flow",
+      "description": "Generate code for a complete payment flow",
+      "arguments": [
+        {
+          "name": "language",
+          "type": "string",
+          "enum": ["python", "javascript", "go", "java", "csharp"],
+          "description": "Programming language for the code"
+        }
+      ],
+      "template": "Write a complete {language} code example for:\n1. Creating a customer\n2. Creating a payment for that customer\n3. Handling the payment response\n4. Processing a refund if needed\n\nUse HyperSwitch sandbox API at sandbox.hyperswitch.io"
+    },
+    {
+      "name": "webhook-handler",
+      "description": "Generate webhook handler code",
+      "arguments": [
+        {
+          "name": "language",
+          "type": "string",
+          "enum": ["python", "javascript", "go"],
+          "description": "Programming language"
+        }
+      ],
+      "template": "Write a {language} webhook handler that:\n1. Verifies the webhook signature\n2. Handles payment.success and payment.failed events\n3. Updates local database accordingly\n\nInclude proper error handling and logging."
+    }
+  ]
+}
