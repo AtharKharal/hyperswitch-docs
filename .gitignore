@@ -3,3 +3,5 @@ agents.md
 Skills/
 .tmp/
 .env
+.rag_index/
+.lsp_index.json

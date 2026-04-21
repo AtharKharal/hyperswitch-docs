@@ -7,10 +7,31 @@ site_description = "Hyperswitch - Open Source Payment Orchestration Platform API
 docs_dir = "docs"
 site_dir = "."
 extra_css = ["stylesheets/extra.css"]
-extra_javascripts = ["javascripts/api-playground.js"]
+extra_javascript = [
+    "javascripts/api-playground.js",
+    "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
+]
 
 [project.theme]
 variant = "modern"
+features = [
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.instant.progress",
+    "navigation.tracking",
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.sections",
+    "navigation.indexes",
+    "navigation.path",
+    "navigation.top",
+    "toc.follow",
+    "search.suggest",
+    "search.highlight",
+    "content.code.copy",
+    "content.tabs.link",
+    "content.code.annotate"
+]
 
 [[project.theme.palette]]
 scheme = "slate"
@@ -27,6 +48,18 @@ toggle = { icon = "material/weather-sunny", name = "Switch to dark mode" }
 
 [project.extra]
 generator = "Zensical"
+
+[project.markdown_extensions]
+pymdownx.superfences = { custom_fences = [{ name = "mermaid", class = "mermaid", format = "!format" }] }
+pymdownx.tabbed = { alternate_style = true }
+pymdownx.details = {}
+pymdownx.admonition = {}
+pymdownx.emoji = { emoji_generator = "zensical.extensions.emoji.to_svg" }
+pymdownx.highlight = { anchor_linenums = true }
+pymdownx.magiclink = {}
+pymdownx.critic = {}
+pymdownx.progressbar = {}
+pymdownx.mark = {}
 
 [[navigation.sections]]
 title = "Tutorials"
