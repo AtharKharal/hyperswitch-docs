@@ -30,7 +30,7 @@ generator = "Zensical"
 
 [[navigation.sections]]
 title = "Tutorials"
-weight = 10
+weight = 50
 [[navigation.sections.links]]
 label = "Onboarding Path"
 href = "tutorials/onboarding"
@@ -61,7 +61,7 @@ href = "index"
 
 [[navigation.sections]]
 title = "How-To Guides"
-weight = 20
+weight = 40
 [[navigation.sections.links]]
 label = "Accept Payment"
 href = "howto/accept-payment"
@@ -93,7 +93,7 @@ href = "explanation/authentication"
 
 [[navigation.sections]]
 title = "Developer Tools"
-weight = 40
+weight = 10
 [[navigation.sections.links]]
 label = "LSP & MCP Integration"
 href = "developer-tools"
@@ -103,7 +103,7 @@ href = "vscode-extension"
 
 [[navigation.sections]]
 title = "API Reference"
-weight = 50
+weight = 20
 [[navigation.sections.links]]
 label = "Overview"
 href = "api-reference/index"
